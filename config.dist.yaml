@@ -1,0 +1,4 @@
+# Zigbee switch ID's for controlling power switches.
+SWITCH_IDS:
+  LIGHT: 0
+  HEAT: 0
