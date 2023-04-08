@@ -1,9 +1,8 @@
 # Entrypoint for greenhouse control
-import yaml
+import time
 
-from api import zigbee
+from device.light import light
 
-CONFIG_FILE_PATH = "config.yaml"
-
-
-zigbee.test2()
+light.turn_on()
+time.sleep(1)
+light.turn_off()

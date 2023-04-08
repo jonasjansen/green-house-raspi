@@ -1,4 +1,7 @@
 # Zigbee switch ID's for controlling power switches.
-SWITCH_IDS:
-  LIGHT: 0
-  HEAT: 0
+ZIGBEE:
+  API_IP: '127.0.0.1'
+  API_KEY: '1234'
+  ID:
+    LIGHT: 0
+    HEATER: 0
