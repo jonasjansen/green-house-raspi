@@ -9,8 +9,13 @@ class Light:
         self.device_id = config.get_config('ZIGBEE/ID/LIGHT')
 
     def get_state(self):
-        result = zigbee.get_state(self.device_id)
-        return result
+        response = zigbee.get_state(self.device_id)
+        response_json = json.loads(response.content)
+
+        if "state" in response_json and "on" in response_json["state"]:
+            return bool(response_json["state"]["on"])
+        else:
+            return False
 
     def turn_on(self):
         result = zigbee.set_state(self.device_id, json.dumps({"on": True}))
