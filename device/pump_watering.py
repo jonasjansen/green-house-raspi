@@ -1,8 +1,8 @@
+from base import BasePump
 from config_provider import config
-from pump import Pump
 
 
-class PumpWatering(Pump):
+class PumpWatering(BasePump):
     def __init__(self):
         self.device_id = config.get_config('ZIGBEE/ID/PUMP')
         self.gpio_direction = config.get_config('GPIO/PUMP_WATERING/DIRECTION')
