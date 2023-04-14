@@ -5,3 +5,4 @@ ZIGBEE:
   ID:
     LIGHT: 0
     HEATER: 0
+    PUMP: 0
