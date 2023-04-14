@@ -1,4 +1,4 @@
-from base import ZigbeeBase
+from ..base import ZigbeeBase
 from config_provider import config
 
 

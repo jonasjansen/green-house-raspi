@@ -1,5 +1,5 @@
-from base import BasePump
 from config_provider import config
+from ..base import BasePump
 
 
 class PumpWatering(BasePump):
