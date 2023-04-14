@@ -8,16 +8,26 @@ class ZigbeeBase:
     device_id = 0
 
     def get_state(self):
-        response = zigbee.get_state(self.device_id)
-        response_json = json.loads(response.content)
+        try:
+            response = zigbee.get_state(self.device_id)
+            response_json = json.loads(response.content)
 
-        if "state" in response_json and "on" in response_json["state"]:
-            return bool(response_json["state"]["on"])
-        else:
-            return False
+            if "state" in response_json and "on" in response_json["state"]:
+                return bool(response_json["state"]["on"])
+
+        except Exception as e:
+            print(e)
+
+        return False
 
     def turn_on(self):
-        result = zigbee.set_state(self.device_id, json.dumps({"on": True}))
+        try:
+            result = zigbee.set_state(self.device_id, json.dumps({"on": True}))
+        except Exception as e:
+            print("Could not turn on Zigbee device", self.device_id, ":", e)
 
     def turn_off(self):
-        result = zigbee.set_state(self.device_id, json.dumps({"on": False}))
+        try:
+            result = zigbee.set_state(self.device_id, json.dumps({"on": False}))
+        except Exception as e:
+            print(e)
