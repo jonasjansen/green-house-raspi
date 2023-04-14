@@ -10,8 +10,6 @@ class Pump(ZigbeeBase):
     device_id = 0
     gpio_direction = 0
     gpio_step = 0
-    def __init__(self):
-        self.device_id = config.get_config('ZIGBEE/ID/PUMP')
 
     def pump(self, drive_time=0):
         if drive_time > 0:
@@ -21,7 +19,6 @@ class Pump(ZigbeeBase):
             time.sleep(0.5)
             self.turn_off()
 
-
     def turn_motor(self, drive_time):
         # Connect to pigpiod daemon
         pi = pigpio.pi()
@@ -30,16 +27,17 @@ class Pump(ZigbeeBase):
         pi.set_mode(self.gpio_direction, pigpio.OUTPUT)
         pi.set_mode(self.gpio_step, pigpio.OUTPUT)
 
-        # Micro step Resolution
+        # Micro step Resolution for pins 14,15,18
         # Full: 0 0 0
         # Half: 1 0 0
         # 1/4:  0 1 0
         # 1/8:  1 1 0
         # 1/16: 0 0 1
         # 1/32: 1 0 1
-        pi.write(14, 0)
-        pi.write(15, 0)
-        pi.write(18, 0)
+
+        pi.write(config.get_config('GPIO/PUMP/MODE_1'), 0)
+        pi.write(config.get_config('GPIO/PUMP/MODE_2'), 0)
+        pi.write(config.get_config('GPIO/PUMP/MODE_3'), 0)
 
         # Set duty cycle and frequency
         pi.set_PWM_dutycycle(self.gpio_step, 128)
@@ -54,6 +52,3 @@ class Pump(ZigbeeBase):
 
         pi.set_PWM_dutycycle(self.gpio_step, 0)  # PWM off
         pi.stop()
-
-
-pump = Pump()

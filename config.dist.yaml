@@ -6,3 +6,15 @@ ZIGBEE:
     LIGHT: 0
     HEATER: 0
     PUMP: 0
+
+GPIO:
+  PUMP:
+    MODE_1: 0
+    MODE_2: 0
+    MODE_3: 0
+  PUMP_HUMIDITY:
+    DIRECTION: 0
+    STEP: 0
+  PUMP_WATERING:
+    DIRECTION: 0
+    STEP: 0
