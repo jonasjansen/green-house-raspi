@@ -1,12 +1,11 @@
 import statistics
-
+from logger import logger
 import Adafruit_DHT
 
 from config_provider import config
 
-
-# install via 'sudo pip install Adafruit-DHT'
-# NOTE: Is deprecated. Might want to replace it with https://pypi.org/project/adafruit-circuitpython-dht/
+import adafruit_dht
+import board
 
 class DHT:
 
@@ -14,19 +13,29 @@ class DHT:
         self.gpio = config.get_config('GPIO/DHT/DATA_PIN')
         self.humidity = 0
         self.temperature = 0
+        self.dhtDevice = adafruit_dht.DHT11(board.D4)
 
     def read_values(self):
-        humidity_vals = []
-        temperature_vals = []
+        try:
+            humidity_vals = []
+            temperature_vals = []
+            # get 10 values and calculate median. Lowers the chances of wrong data.
+            for i in range(10):
+                try:
+                    humidity_vals.append(self.dhtDevice.humidity)
+                    temperature_vals.append(self.dhtDevice.temperature)
+                except RuntimeError as error:
+                    # Errors happen fairly often, DHT's are hard to read, just keep going
+                    logger.debug(str(error))
+                    continue
 
-        # get 10 values and calculate median. Lowers the chances of wrong data.
-        for i in range(10):
-            cur_humidity, cur_temperature = Adafruit_DHT.read_retry(Adafruit_DHT.DHT11, self.gpio)
-            humidity_vals.append(cur_humidity)
-            temperature_vals.append(cur_temperature)
+            self.temperature = statistics.median(temperature_vals)
+            self.humidity = statistics.median(humidity_vals)
+            self.dhtDevice.exit()
+        except Exception as error:
+            self.dhtDevice.exit()
+            logger.error(str(error))
 
-        self.temperature = statistics.median(temperature_vals)
-        self.humidity = statistics.median(humidity_vals)
 
     def get_temperature(self):
         self.read_values()
