@@ -1,7 +1,8 @@
 # Entrypoint for greenhouse control
 import yaml
+import os
 
-CONFIG_FILE_PATH = "config.yaml"
+CONFIG_FILE = "config.yaml"
 
 
 class ConfigProvider:
@@ -25,7 +26,9 @@ class ConfigProvider:
             return self.config
 
     def load_config(self):
-        with open(CONFIG_FILE_PATH, "r") as f:
+        # get absolute file file location.
+        file = '/'.join((os.path.dirname(os.path.realpath(__file__)), CONFIG_FILE))
+        with open(file, "r") as f:
             self.config = yaml.safe_load(f)
 
 
