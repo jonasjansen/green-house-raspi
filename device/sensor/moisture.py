@@ -11,8 +11,8 @@ class Moisture:
         self.moisture = 0
 
     def get_moisture(self):
-        # TODO
-        pass
+        # TODO: Return correct value
+        return 60
 
 
 moisture = Moisture()

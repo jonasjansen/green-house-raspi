@@ -1,7 +1,7 @@
 from machine import ADC, Pin
 import utime
 
-soil = ADC(Pin(26))
+soil = ADC(Pin(2))
 
 min_moisture=0
 max_moisture=65535
