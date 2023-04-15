@@ -16,6 +16,11 @@ def run():
     heater_status = heater.get_state()
 
     # log sensor values
+    logger.info("humidity: " + str(humidity))
+    logger.info("temperature: " + str(temperature))
+    logger.info("moisture: " + str(moisture))
+    logger.info("light_status: " + str(light_status))
+    logger.info("heater_status: " + str(heater_status))
 
 
     # control devices.
