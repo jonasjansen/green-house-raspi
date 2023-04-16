@@ -30,10 +30,9 @@ class Moisture:
 
     def read_moisture(self):
         values = []
-        for i in range(10):
+        for i in range(3):
             values.append(self.chan0.voltage)
             sleep(0.1)
-        print(values)
         self.moisture = "{:>5.3f}".format(statistics.median(values))
 
 

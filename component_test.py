@@ -29,7 +29,6 @@ def run():
     logger.info("light_status: " + str(light_status))
     logger.info("heater_status: " + str(heater_status))
 
-    return
     print("\n")
     print("Step 2: Power Switches")
     print("\n")

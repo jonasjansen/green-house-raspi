@@ -3,8 +3,9 @@ import control
 
 
 def main():
-    #control.run()
-    component_test.run()
+
+    #component_test.run()
+    control.run()
 
 
 if __name__ == "__main__":
