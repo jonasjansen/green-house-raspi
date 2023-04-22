@@ -59,7 +59,7 @@ def run():
         # humidity
         if humidity <= config.get_config('CONTROL/HUMIDITY/MIN'):
             logger.info("Turn On Humidity")
-            humidity_pump.run(10)
+            humidity_pump.run(15)
             logger.info("Close Window")
             window_servo.close_window()
         elif humidity >= config.get_config('CONTROL/HUMIDITY/MAX'):
@@ -70,7 +70,7 @@ def run():
             window_servo.close_window()
 
         # moisture
-        if float(moisture) <= float(config.get_config('CONTROL/MOISTURE/THRESHOLD')):
+        if float(moisture) >= float(config.get_config('CONTROL/MOISTURE/THRESHOLD')):
             logger.info("Turn On Moisture")
             humidity_pump.run(10)
             watering_pump.run(10)

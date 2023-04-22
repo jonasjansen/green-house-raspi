@@ -3,6 +3,7 @@ import yaml
 import os
 
 CONFIG_FILE = "config.yaml"
+FIREBASE_CREDENTIALS_FILE = "google_service_account.json"
 
 
 class ConfigProvider:
@@ -26,10 +27,13 @@ class ConfigProvider:
             return self.config
 
     def load_config(self):
-        # get absolute file file location.
+        # get absolute file location.
         file = '/'.join((os.path.dirname(os.path.realpath(__file__)), CONFIG_FILE))
         with open(file, "r") as f:
             self.config = yaml.safe_load(f)
+
+    def get_firebase_credentials_file(self):
+        return '/'.join((os.path.dirname(os.path.realpath(__file__)), FIREBASE_CREDENTIALS_FILE))
 
 
 config = ConfigProvider()

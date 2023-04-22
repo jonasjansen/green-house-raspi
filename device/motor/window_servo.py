@@ -30,15 +30,12 @@ class WindowServo:
 
         # Set GPIO as PWM with 50Hz
         p = GPIO.PWM(self.gpio_pin, 50)
-        p.start(2.5)
 
         # Set to wanted duty cycle
-        p.ChangeDutyCycle(duty_cycle)
+        p.start(duty_cycle)
         time.sleep(0.5)
 
-        # Hold position and stop
-        p.ChangeDutyCycle(0)
-        p.stop()
+        # Clean up
         GPIO.cleanup()
 
 
