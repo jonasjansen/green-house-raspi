@@ -7,7 +7,14 @@ ZIGBEE:
     HEATER: 0
     PUMP: 0
 
+FIREBASE:
+  STORAGE_BUCKET: 'my-bucket.com'
+
 GPIO:
+  DHT:
+    DATA_PIN: 0
+  MOISTURE:
+    DATA_PIN: 0
   PUMP:
     MODE_1: 0
     MODE_2: 0
@@ -18,3 +25,30 @@ GPIO:
   PUMP_WATERING:
     DIRECTION: 0
     STEP: 0
+  SERVO:
+    DATA_PIN: 0
+    DUTY_CYCLE_OPEN: 0
+    DUTY_CYCLE_CLOSED: 0
+
+
+CONTROL:
+  TEMPERATURE:
+    MIN: 0
+    MAX: 0
+  HUMIDITY:
+    MIN: 0
+    MAX: 0
+  MOISTURE:
+    THRESHOLD: 0
+  LIGHT:
+    START: 0
+    END:  0
+  PUMP:
+    START: 0
+    END: 0
+
+
+DATA:
+  PATH:
+    LOG: '/path/to/logs'
+    PICTURE: '/path/to/pictures'
