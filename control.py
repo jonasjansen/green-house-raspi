@@ -150,7 +150,7 @@ def get_app_action(document_name):
     counter = doc['counter']
     if counter > 0:
         doc["counter"] = counter - 1
-        result = ACTION_ON
+        result = doc['status']
         override = True
     else:
         result = ACTION_OFF
