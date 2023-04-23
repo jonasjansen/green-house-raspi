@@ -1,6 +1,12 @@
 import RPi.GPIO as GPIO
 import time
 
+from device.motor.window_servo import window_servo
+
+window_servo.open_window()
+time.sleep(5)
+window_servo.close_window()
+
 servoPIN = 17
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(servoPIN, GPIO.OUT)
