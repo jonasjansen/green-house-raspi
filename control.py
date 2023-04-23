@@ -137,10 +137,12 @@ def run():
             "light_state": str(light_state),
             "heating_state": str(heater_state),
             "window_state": str(window_state),
-            "image_path": "light.jpg",
+            "image_path": str(picture.get_blob_name()),
             "timestamp": now
         }
         firebase.add_document("environment", environment)
+        firebase.upload_file(picture.get_blob_name(), picture.get_file_path())
+
     except Exception as e:
         logger.error(str(e))
 
