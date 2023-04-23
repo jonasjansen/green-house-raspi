@@ -1,40 +1,39 @@
-import requests
+import json
 
-from config_provider import config
 import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import firestore
 from config_provider import config
 
+
 class Firebase:
 
     def __init__(self):
-        # Use a service account.
+        # Init firebase connection.
         cred = credentials.Certificate(config.get_firebase_credentials_file())
         firebase_admin.initialize_app(cred)
-
-        # Get document from database.
         self.db = firestore.client()
-        pass
 
-    def get_overrides(self):
-        pass
+    def add_document(self, collection, data):
+        self.db.collection(collection).add(data)
 
-    def test(self):
-        # Get document from database.
-        doc_ref = self.db.collection(u'override').document(u'override_light')
+    def update_document(self, collection, document, data):
+        doc_ref = self.db.collection(collection).document(document)
+        doc_ref.update(data)
+
+    def get_document(self, collection, document):
+        result = {}
+        doc_ref = self.db.collection(collection).document(document)
 
         try:
             doc = doc_ref.get()
             if doc.exists:
-                print(f'Document data: {doc.to_dict()}')
+                result = doc.to_dict()
             else:
-                print(u'No such document!')
+                print('Document', document, "in collection", collection, "does not exist.")
         except Exception as e:
             print("Error getting document:", e)
+        return result
 
 
 firebase = Firebase()
-
-# Test - Remove later
-firebase.test()

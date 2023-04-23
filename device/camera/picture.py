@@ -11,20 +11,22 @@ class Picture:
 
     def __init__(self):
         self.picam2 = Picamera2()
+        self.file_name = ""
+        self.folder_name = ""
 
     def take(self):
-        self.picam2.start_and_capture_file(self.get_file_name(), show_preview=False)
+        self.picam2.start_and_capture_file(self.get_file_path(), show_preview=False)
 
-    def get_file_name(self):
+    def get_file_path(self):
         # create file in patter PICTURE_PATH/YYYY-DD-MM/YYYY-DD-MM__hh-mm-ss_picture.jpg
         now = datetime.now()
-        folder_name = '/'.join((config.get_config('DATA/PATH/PICTURE'), now.strftime("%Y-%m-%d")))
-        file_name = '_'.join((now.strftime("%Y-%m-%d__%H-%M-%S"), '_picture.jpg'))
+        self.folder_name = '/'.join((config.get_config('DATA/PATH/PICTURE'), now.strftime("%Y-%m-%d")))
+        self.file_name = '_'.join((now.strftime("%Y-%m-%d__%H-%M-%S"), '_picture.jpg'))
 
         # create folder if it does not exist
-        Path(folder_name).mkdir(parents=True, exist_ok=True)
+        Path(self.folder_name).mkdir(parents=True, exist_ok=True)
 
-        return '/'.join((folder_name, file_name))
+        return '/'.join((self.folder_name, self.file_name))
 
 
 picture = Picture()
