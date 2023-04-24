@@ -58,25 +58,24 @@ def run():
         elif temperature >= config.get_config('CONTROL/TEMPERATURE/MAX'):
             actions["heating_control"] = ACTION_OFF
 
-        # run pumps only in defined hours for security reasons.
-        if config.get_config('CONTROL/PUMP/START') < current_hour < config.get_config('CONTROL/PUMP/END'):
+        # humidity
+        actions["humidity_control"] = ACTION_OFF
+        if humidity <= config.get_config('CONTROL/HUMIDITY/MIN') and \
+                config.get_config('CONTROL/PUMP/START') < current_hour < config.get_config('CONTROL/PUMP/END'):
+            # run pumps only in defined hours for security reasons.
+            actions["humidity_control"] = ACTION_ON
+            actions["window_control"] = ACTION_CLOSED
+            window_servo.close_window()
+        elif humidity >= config.get_config('CONTROL/HUMIDITY/MAX'):
+            actions["window_control"] = ACTION_OPEN
+        else:
+            actions["window_control"] = ACTION_OFF
 
-            # humidity
-            actions["humidity_control"] = ACTION_OFF
-            if humidity <= config.get_config('CONTROL/HUMIDITY/MIN'):
-                actions["humidity_control"] = ACTION_ON
-                actions["window_control"] = ACTION_CLOSED
-                window_servo.close_window()
-            elif humidity >= config.get_config('CONTROL/HUMIDITY/MAX'):
-                actions["window_control"] = ACTION_OPEN
-            else:
-                actions["window_control"] = ACTION_OFF
-
-            # moisture
-            if float(moisture) >= float(config.get_config('CONTROL/MOISTURE/THRESHOLD')):
-                actions["watering_control"] = ACTION_ON
-            else:
-                actions["watering_control"] = ACTION_OFF
+        # moisture
+        if float(moisture) >= float(config.get_config('CONTROL/MOISTURE/THRESHOLD')):
+            actions["watering_control"] = ACTION_ON
+        else:
+            actions["watering_control"] = ACTION_OFF
 
         # get app actions
         actions["heating_app"], actions["heating_override"] = get_app_action("override_heating")
