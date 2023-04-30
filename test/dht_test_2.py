@@ -7,7 +7,7 @@ import adafruit_dht
 import board
 
 # Initial the dht device, with data pin connected to:
-dhtDevice = adafruit_dht.DHT11(board.D4)
+dhtDevice = adafruit_dht.DHT22(board.D4)
 
 
 # you can pass DHT22 use_pulseio=False if you wouldn't like to use pulseio.

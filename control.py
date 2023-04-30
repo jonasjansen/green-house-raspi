@@ -74,8 +74,19 @@ def run():
         # moisture
         if float(moisture) >= float(config.get_config('CONTROL/MOISTURE/THRESHOLD')):
             actions["watering_control"] = ACTION_ON
+            actions["humidity_control"] = ACTION_ON
         else:
             actions["watering_control"] = ACTION_OFF
+
+        # watering time
+        watering_start_hour, watering_start_minute = config.get_config('CONTROL/WATERING_TIME/START').split(':')
+        watering_end_hour, watering_end_minute = config.get_config('CONTROL/WATERING_TIME/END').split(':')
+        watering_start = now.replace(hour=int(watering_start_hour), minute=int(watering_start_minute))
+        watering_end = now.replace(hour=int(watering_end_hour), minute=int(watering_end_minute))
+
+        if watering_start < now < watering_end:
+            actions["watering_control"] = ACTION_ON
+            actions["humidity_control"] = ACTION_ON
 
         # get app actions
         actions["heating_app"], actions["heating_override"] = get_app_action("override_heating")
