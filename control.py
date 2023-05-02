@@ -10,6 +10,7 @@ from device.motor.window_servo import window_servo
 from device.motor.humidity_pump import humidity_pump
 from device.motor.watering_pump import watering_pump
 from device.camera.picture import picture
+from device.camera.sprout_detect import sprout_detect
 
 from config_provider import config
 from logger import logger
@@ -138,6 +139,8 @@ def run():
         # get app actions
         firebase.add_document("actions", actions)
 
+        classify_result = sprout_detect.detect(picture.file_path)
+
         # Update Database
         # Environment dict
         environment = {
@@ -148,6 +151,7 @@ def run():
             "heating_state": str(heater_state),
             "window_state": str(window_state),
             "image_path": str(picture.get_blob_name()),
+            "classify_result": str(classify_result),
             "timestamp": now
         }
         firebase.add_document("environment", environment)
