@@ -44,11 +44,14 @@ CONTROL:
     START: 0
     END:  0
   PUMP:
-    START: 0
-    END: 0
-
+    START: 8
+    END: 21
+  WATERING_TIME:
+    START: "12:00"
+    END: "12:15"
 
 DATA:
   PATH:
     LOG: '/path/to/logs'
+    MODEL: '/path/to/model'
     PICTURE: '/path/to/pictures'
