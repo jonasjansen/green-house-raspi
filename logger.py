@@ -19,7 +19,6 @@ class Logger:
         message = ':'.join((self.now.strftime("%Y-%m-%d %H:%M:%S"), message))
         self.write_to_console(message)
         self.write_to_file(message)
-        # TODO write to database
 
     def write_to_console(self, message):
         print(message)
