@@ -1,10 +1,7 @@
-import component_test
 import control
 
 
 def main():
-
-    #component_test.run()
     control.run()
 
 
