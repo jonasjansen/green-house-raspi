@@ -56,7 +56,7 @@ def run():
         # temperature
         if temperature <= config.get_config('CONTROL/TEMPERATURE/MIN'):
             actions["heating_control"] = ACTION_ON
-        elif temperature >= config.get_config('CONTROL/TEMPERATURE/MAX'):
+        else:
             actions["heating_control"] = ACTION_OFF
 
         # humidity

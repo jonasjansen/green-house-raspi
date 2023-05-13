@@ -1,7 +1,6 @@
 import statistics
 from time import sleep
 
-import Adafruit_DHT
 import adafruit_dht
 
 from config_provider import config

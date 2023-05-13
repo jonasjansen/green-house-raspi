@@ -6,13 +6,10 @@ import board
 import busio
 from adafruit_ads1x15.analog_in import AnalogIn
 
-from config_provider import config
-
 
 class Moisture:
 
     def __init__(self):
-        self.gpio = config.get_config('GPIO/MOISTURE/DATA_PIN')
         self.moisture = 0
 
         i2c = busio.I2C(board.SCL, board.SDA)
